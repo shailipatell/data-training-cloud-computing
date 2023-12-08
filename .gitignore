@@ -1,0 +1,17 @@
+# Ignore system and IDE files
+.idea/
+target/
+*.iml
+
+# Ignore Spark logs
+logs/
+
+# Ignore compiled code
+*.class
+
+# Ignore temporary files
+*.log
+*.swp
+*~
+.DS_Store
+
