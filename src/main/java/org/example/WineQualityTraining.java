@@ -16,17 +16,14 @@ public class WineQualityTraining {
 
         SparkSession spark = SparkSession.builder()
                 .appName("WineQualityLocalTraining")
-              .master("local[*]")
-                // .master("spark://ip-172-31-29-251:7077")
-              //  .master("spark://ip-172-31-29-251.ec2.internal:7077")
+                .master("spark://ip-172-31-29-251.ec2.internal:7077")
                 .getOrCreate();
 
         Dataset<Row> rawData = spark.read()
                 .option("header", "true")
                 .option("delimiter", ";")
                 .option("inferSchema", "true")
-                  .csv("src/main/resources/TrainingDataset.csv");
-                //.csv("/home/ubuntu/TrainingDataset.csv");
+                .csv("/home/ubuntu/TrainingDataset.csv");
 
         String[] originalCols = rawData.columns();
         for (String col : originalCols) {
@@ -57,8 +54,7 @@ public class WineQualityTraining {
 
         LogisticRegressionModel rfModel = logisticRegression.fit(transformedData);
 
-          rfModel.save("src/main/resources/TrainedLogisticRegressionFinal");
-      //  rfModel.save("/home/ubuntu/TrainedLogisticRegressionFinal");
+        rfModel.save("/home/ubuntu/TrainedLogisticRegressionFinal");
 
         spark.stop();
     }
